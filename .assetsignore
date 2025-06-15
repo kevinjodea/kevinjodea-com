@@ -1,0 +1,5 @@
+.github/
+docker/
+*.md
+.gitignore
+wrangler.toml
