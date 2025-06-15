@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    networks:
+      - traefik
+    volumes:
+      - ..:/usr/share/nginx/html
+    restart: unless-stopped
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.littlelink.rule=Host(`kevinjodea.local`)"
+      - "traefik.http.routers.littlelink.entrypoints=web-secure"
+      - "traefik.http.routers.littlelink.tls=true"
+      - "traefik.http.services.littlelink.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
